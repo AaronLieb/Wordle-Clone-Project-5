@@ -22,6 +22,11 @@
       service = "redis_connect"
       rule = "PathPrefix(`/start`) || PathPrefix(`/make_guess`) || PathPrefix(`/get_game`)"
 
+    [http.routers.game-http]
+      entryPoints = ["http"]
+      service = "game"
+      rule = "PathPrefix(`/game`)"
+
   [http.services]
 
     [http.services.app]
@@ -41,3 +46,6 @@
       [http.services.redis_connect.loadBalancer]
         [[http.services.redis_connect.loadBalancer.servers]]
           url = "http://127.0.0.1:5300"
+      [http.services.game.loadBalancer]
+        [[http.services.game.loadBalancer.servers]]
+          url = "http://127.0.0.1:5400"
