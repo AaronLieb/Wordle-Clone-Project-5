@@ -157,7 +157,7 @@ def make_guess(s: GameGuess, response: Response, db: sqlite3.Connection = Depend
     
     return {"msg": "Error: Only 6 guesses are allowed"}
 
-@app.get("/get_game/", status_code=status.HTTP_200_OK)
+@app.put("/get_game/", status_code=status.HTTP_200_OK)
 def get_game(s: GameStart, response: Response, db: sqlite3.Connection = Depends(get_db)):
     # try:
     #     cur = db[3].cursor()
@@ -202,7 +202,7 @@ def get_game(s: GameStart, response: Response, db: sqlite3.Connection = Depends(
     val = r.hgetall(f"{guid},{s.game_id}")
     if len(val) == 0:
         response.status_code = status.HTTP_400_BAD_REQUEST
-        result['status'] = "Invalid game_iD"
+        result['status'] = "Invalid game_id"
         return result
     
     guesses = OrderedDict()
